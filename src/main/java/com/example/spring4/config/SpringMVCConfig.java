@@ -3,16 +3,21 @@ package com.example.spring4.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+/**
+ * Spring MCV configuration.
+ * InternalResourceViewResolver is used and views are /WEB-INF/views/*.jsp
+ * Static resources are configured to be in /resources (physically and via url).
+ * 
+ */
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = {"com.example.spring4"})
-public class DispatcherConfig extends WebMvcConfigurerAdapter {
+@ComponentScan("com.example.spring4.web")
+public class SpringMVCConfig extends WebMvcConfigurerAdapter {
 	
 	/**
 	 * Static resources configuration (js, css images).
@@ -22,14 +27,6 @@ public class DispatcherConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/").setCachePeriod(31556926);
     }
 	
-	/**
-	 * Used to map all requests to spring MVC ("/")
-	 */
-	@Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
-    }
- 
 	/**
 	 * Put all jsp pages under /WEB-INF/views.
 	 */
